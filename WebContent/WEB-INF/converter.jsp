@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ page import="com.mb.tempconverter.models.*"  %>
+<%
+	User user = (User) request.getSession().getAttribute("user");
+
+	if(user == null){
+		System.out.println("no session");
+		response.sendRedirect("login");
+	}else{
+		System.out.println("session okey");
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,17 +65,20 @@ body {
 			<h1>Bootstrap starter template</h1>
 			<p class="lead">
 			<form class="form-signin" method="post">
-				<h2 class="form-signin-heading">Please sign in</h2>
+			
 				<label for="inputEmail" class="sr-only">Email address</label> <input
-					type="email" id="inputEmail" class="form-control" name="email"
-					placeholder="Email address" required="" autofocus=""> <label
-					for="inputPassword" class="sr-only">Password</label> <input
-					type="password" id="inputPassword" class="form-control" name="password"
-					placeholder="Password" required="">
-				
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-					in</button>
+					 id="inputEmail" class="form-control" name="celcius"
+					required="" autofocus=""> 
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Convert</button>
 			</form>
+			
+			<br/><br/>
+			<h2>Fahrenheit</h2>
+			<%
+			if(request.getAttribute("result") != null){
+				out.write(request.getAttribute("result").toString());
+			}
+			%>
 			</p>
 
 		</div>

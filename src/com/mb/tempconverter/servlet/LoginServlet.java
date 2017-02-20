@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mb.tempconverter.models.User;
+
 public class LoginServlet extends HttpServlet {
 
 	
@@ -17,5 +19,19 @@ public class LoginServlet extends HttpServlet {
 		//PrintWriter out = resp.getWriter();
 		//out.println("<html><head></head><body><h1>Hello World !</h1></body></html>");
 		req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("LoginServlet - doPost method");
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		System.out.println("Email : "+ email + "  -- Password : " + password);
+		if(email.equals("test@test.com") && password.equals("123456")){
+			req.getSession().setAttribute("user", new User(email, password));
+			resp.sendRedirect("converter");
+		}else{
+			resp.sendRedirect("login");
+		}
 	}
 }
